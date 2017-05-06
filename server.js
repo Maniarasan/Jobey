@@ -20,28 +20,20 @@ app.get('/sample', function (req, res) {
     var where = req.param('location');
     var body;
     var jsonResponse = [];
-//     var gitJobs = new pingGithub.gitJobs(job, where, function (resp) {
-//         body = JSON.parse(resp);
-//   var jsonResponse = [];
-//      jsonResponse.push({ "text": "Hi 1 is a lucky number..." });
-//     console.log("degug: "+jsonResponse);
-//     res.send(jsonResponse);
-//     });
-})
-
-function gitJobs(job, location, callback) {
-    var url = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?text="+job+"&city="+location+"&direct=1&pgcnt=1";
-    request(url, function (err, res, body) {
-        callback(body);
+    // res.send(jsonResponse);
+    var gitJobs = new pingGithub.gitJobs(job, where, function (resp) {
+    res.send(resp);
     });
-}
 
-app.get('/test', function (req, res) {
-
-    var jsonResponse = [];
-jsonResponse.push({ "message": "working"});
-    res.send(jsonResponse);
 })
+
+// function gitJobs(job, location, callback) {
+//     var url = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?text="+job+"&city="+location+"&direct=1&pgcnt=1";
+//     request(url, function (err, res, body) {
+//         callback(body);
+//     });
+// }
+
 
 var server = app.listen(process.env.PORT || 3000, function () {
     console.log("Listening on port %s", server.address().port);
